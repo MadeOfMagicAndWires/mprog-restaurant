@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See https://mobikul.com/use-animated-vector-drawable-app/ for inspiration -->
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <objectAnimator
+        android:propertyName="alpha"
+        android:duration="@android:integer/config_shortAnimTime"
+        android:valueType="floatType"
+        android:valueFrom="0"
+        android:valueTo="1" />
+</set>

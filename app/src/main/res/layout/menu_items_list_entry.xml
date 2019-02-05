@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.design.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="25dp"
+    android:layout_margin="8dp">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minWidth="400dp"
+        android:minHeight="125dp">
+
+
+        <android.support.constraint.Guideline
+            android:id="@+id/ImgBotttomGuideLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="125dp" />
+
+
+        <ImageView
+            android:id="@+id/itemImg"
+            style="@style/AppTheme.MenuItemImage"
+            android:elevation="4dp"
+            android:padding="10dp"
+
+            android:contentDescription="@string/item_img_content_desc"
+            app:layout_constraintBottom_toBottomOf="@+id/ImgBotttomGuideLine"
+            app:layout_constraintEnd_toStartOf="@id/itemTextContainer"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="centerCrop"
+
+            tools:src="@tools:sample/backgrounds/scenic"/>
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/itemTextContainer"
+            style="@style/AppTheme.MenuItemTextContainer"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintStart_toEndOf="@id/itemImg"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/itemTitle"
+                style="@style/AppTheme.MenuItemTitle"
+
+                app:layout_constraintBottom_toTopOf="@id/itemDesc"
+                app:layout_constraintEnd_toStartOf="@id/itemOverflowMenu"
+                app:layout_constraintHorizontal_weight="3"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Menu Item Title" />
+
+            <ImageButton
+                android:id="@+id/itemOverflowMenu"
+                style="@style/AppTheme.MenuItemOverflowMenu"
+                android:src="@drawable/ic_overflow"
+
+                app:layout_constraintBottom_toTopOf="@+id/itemDesc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@+id/itemTitle"
+                app:layout_constraintTop_toTopOf="@+id/itemTitle" />
+
+            <TextView
+                android:id="@+id/itemDesc"
+                style="@style/AppTheme.MenuItemDesc"
+
+                app:layout_constraintBottom_toTopOf="@id/itemPrice"
+                app:layout_constraintEnd_toStartOf="@id/itemOverflowMenu"
+                app:layout_constraintStart_toStartOf="@+id/itemTitle"
+                app:layout_constraintTop_toBottomOf="@id/itemTitle"
+
+                tools:text="@tools:sample/lorem/random" />
+
+            <TextView
+                android:id="@+id/itemPrice"
+
+                style="@style/AppTheme.MenuItemPrice"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/itemDesc"
+                app:layout_constraintTop_toBottomOf="@+id/itemDesc"
+                tools:text="€34.00" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.design.card.MaterialCardView>
+
+
