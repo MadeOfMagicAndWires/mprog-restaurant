@@ -19,7 +19,7 @@
         android:layout_marginBottom="10dp"
 
         android:textAlignment="center"
-
+        android:textSize="18sp"
 
         tools:text="@tools:sample/lorem/random" />
 
@@ -34,8 +34,7 @@
         <NumberPicker
             android:id="@+id/orderNumber"
             android:layout_width="wrap_content"
-            android:layout_height="55dp"
-
+            android:layout_height="75dp"
 
             app:layout_constraintEnd_toStartOf="@+id/orderButton"
             app:layout_constraintStart_toStartOf="parent"

@@ -21,6 +21,38 @@ import java.util.List;
 @SuppressWarnings("ConstantConditions") // isAdded() makes sure getActivity != null
 public class CategoriesActivityFragment extends ListFragment implements CategoriesRequest.Callback {
 
+    /**
+     * Event listener that will retry a categories request on click.
+     */
+    private static class RetryCategoriesRequestOnClick implements View.OnClickListener {
+
+        private CategoriesRequest request;
+        private CategoriesRequest.Callback callbackActivity;
+
+        /**
+         * Standard consructor
+         * @param request the CategoriesRequest to retry on click
+         * @param callbackActivity callback to call when the request is resolved.
+         */
+        public RetryCategoriesRequestOnClick(@NonNull CategoriesRequest request, CategoriesRequest.Callback callbackActivity) {
+            this.request = request;
+            this.callbackActivity = callbackActivity;
+        }
+
+        /**
+         * Called when a view has been clicked.
+         *
+         * @param v The view that was clicked.
+         */
+        @Override
+        public void onClick(View v) {
+            request.getCategories(callbackActivity);
+
+        }
+    }
+
+
+
     public static final String CATEGORY_BUNDLE_KEY = "category";
 
     /** empty list to used by the ListView and added to at a later point **/
@@ -109,7 +141,7 @@ public class CategoriesActivityFragment extends ListFragment implements Categori
             // add retry action
             //noinspection ConstantConditions
             msg.setAction(R.string.retry,
-                    new RestaurantApiRequest.RetryRequestOnClick(
+                    new RetryCategoriesRequestOnClick(
                             CategoriesRequest.getInstance(getActivity()),
                             this));
 

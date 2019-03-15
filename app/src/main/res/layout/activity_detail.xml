@@ -27,12 +27,14 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Title"
             app:contentScrim="?attr/colorPrimary"
-            android:background="#efefef"
+            android:background="@android:color/darker_gray"
             android:fitsSystemWindows="true">
 
             <ImageView
+                android:id="@+id/toolbar_img"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:scaleType="centerCrop"
 
                 tools:src="@drawable/ic_loop_animated" />
 
@@ -50,6 +52,12 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_detail" />
+    <FrameLayout
+        android:id="@+id/detail_fragment"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        tools:layout="@layout/fragment_detail"/>
 
 </android.support.design.widget.CoordinatorLayout>

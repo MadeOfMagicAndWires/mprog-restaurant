@@ -1,25 +1,16 @@
 package online.madeofmagicandwires.restaurant;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
-
 import android.support.annotation.NonNull;
-
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
-import android.util.Log;
 import android.webkit.URLUtil;
 import android.widget.ImageView;
-
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.squareup.picasso.Picasso;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 

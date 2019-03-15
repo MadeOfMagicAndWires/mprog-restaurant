@@ -5,7 +5,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
-import android.view.View;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -18,6 +17,10 @@ import java.lang.annotation.Retention;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
+/**
+ * Abstract superclass containing methods and members for generic JSON requests from the API.
+ * Needs to be extended for more specific request methods
+ */
 abstract public class RestaurantApiRequest implements Response.ErrorListener, Response.Listener<JSONObject> {
 
     /** the root url of the API **/
@@ -41,36 +44,6 @@ abstract public class RestaurantApiRequest implements Response.ErrorListener, Re
      */
     public interface Callback {
 
-    }
-
-    /**
-     * OnClickListener that retries the request when clicked.
-     */
-    public static class RetryRequestOnClick implements View.OnClickListener {
-
-        private RestaurantApiRequest request;
-        private RestaurantApiRequest.Callback callback;
-
-        public RetryRequestOnClick(@NonNull RestaurantApiRequest request,
-                                   Callback callback) {
-            this.request = request;
-            this.callback = callback;
-        }
-        /**
-         * Called when a view has been clicked.
-         *
-         * @param v The view that was clicked.
-         */
-        @Override
-        public void onClick(View v) {
-            if(request != null) {
-                if(request instanceof CategoriesRequest && callback instanceof CategoriesRequest.Callback) {
-                    ((CategoriesRequest) request).getCategories((CategoriesRequest.Callback) callback);
-                } else  if(request instanceof MenuItemsRequest && callback instanceof MenuItemsRequest.Callback) {
-                    ((MenuItemsRequest) request).getMenu((MenuItemsRequest.Callback) callback);
-                }
-            }
-        }
     }
 
     /** context to be used by Volley **/

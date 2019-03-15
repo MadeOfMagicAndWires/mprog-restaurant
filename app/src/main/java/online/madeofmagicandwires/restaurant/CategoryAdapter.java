@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.Collection;
 import java.util.List;
 
-public class CategoryAdapter extends ArrayAdapter {
+public class CategoryAdapter extends ArrayAdapter<String> {
 
     private List<String> data;
     private LayoutInflater inflater;
@@ -28,10 +28,7 @@ public class CategoryAdapter extends ArrayAdapter {
      *                 instantiating views. Requires a textview with the id android.R.id.text1
      * @param objects  The objects to represent in the ListView.
      */
-    public CategoryAdapter(
-            Context context,
-            int resource,
-             List<String> objects) {
+    public CategoryAdapter(Context context, int resource, List<String> objects) {
         super(context, resource, objects);
         this.data = objects;
         this.inflater = LayoutInflater.from(context);

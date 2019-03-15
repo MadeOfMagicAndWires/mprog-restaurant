@@ -2,6 +2,7 @@ package online.madeofmagicandwires.restaurant;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,33 @@ import java.util.List;
  * Fragment containing the list of Menu Items
  */
 public class MenuFragment extends Fragment implements MenuItemsRequest.Callback {
+
+    /**
+     * event listener that retries the Menu request when clicked.
+     */
+    private static class RetryMenuRequestOnClick implements View.OnClickListener {
+
+        private MenuItemsRequest request;
+        private MenuItemsRequest.Callback callbackActivity;
+
+        public RetryMenuRequestOnClick(@NonNull MenuItemsRequest request, MenuItemsRequest.Callback callback) {
+            this.request = request;
+            this.callbackActivity = callback;
+        }
+
+        /**
+         * Called when a view has been clicked.
+         *
+         * @param v The view that was clicked.
+         */
+        @Override
+        public void onClick(View v) {
+            request.getMenu(callbackActivity);
+        }
+    }
+
+
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -155,7 +183,7 @@ public class MenuFragment extends Fragment implements MenuItemsRequest.Callback 
                     Snackbar.LENGTH_LONG);
             MenuItemsRequest request = MenuItemsRequest.getInstance(getActivity());
                 sb.setAction(R.string.retry,
-                        new RestaurantApiRequest.RetryRequestOnClick(request, this));
+                        new RetryMenuRequestOnClick(request, this));
         }
 
     }
