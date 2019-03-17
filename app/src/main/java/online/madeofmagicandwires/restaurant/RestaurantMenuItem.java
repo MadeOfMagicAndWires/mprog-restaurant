@@ -10,6 +10,9 @@ import java.util.HashMap;
 
 /**
  * Class representing all relevant information about a menu item.
+ *
+ * Renamed RestaurantMenuItem in order to avoid confusion with {@link android.view.MenuItem}
+ *
  */
 public class RestaurantMenuItem implements Serializable {
 

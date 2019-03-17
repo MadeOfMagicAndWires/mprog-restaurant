@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 
-public class MenuActivity extends AppCompatActivity implements MenuFragment.OnFragmentInteractionListener {
+public class MenuActivity extends AppCompatActivity {
 
     public static String MENU_FILTER;
 
@@ -32,7 +32,7 @@ public class MenuActivity extends AppCompatActivity implements MenuFragment.OnFr
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction changes = fm.beginTransaction();
 
-        MenuFragment main = MenuFragment.newInstance(this, MENU_FILTER);
+        MenuFragment main = MenuFragment.newInstance(MENU_FILTER);
         changes.replace(R.id.fragmentContainer, main);
         changes.commit();
         fm.findFragmentById(R.id.menuListFragment);

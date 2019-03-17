@@ -2,6 +2,7 @@ package online.madeofmagicandwires.restaurant;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -70,19 +71,8 @@ public class CategoriesRequest extends RestaurantApiRequest {
         if(!callbackActivity.equals(mCallbackActivity)) {
             mCallbackActivity = callbackActivity;
         }
-        makeRequest(Request.Method.GET, getEndPoint(Request.Method.GET), "");
+        makeRequest(Request.Method.GET, RestaurantApiRequest.ENDPOINT_CATEGORIES, "");
 
-    }
-
-    /**
-     * Retrieves the API endpoint for this type of request
-     *
-     * @param method the request method used; e.g. "GET"
-     * @return String pointing to the API endpoint, sans preceding "/"
-     */
-    @Override
-    public @EndPoint String getEndPoint(int method) {
-        return ENDPOINT_CATEGORIES;
     }
 
 

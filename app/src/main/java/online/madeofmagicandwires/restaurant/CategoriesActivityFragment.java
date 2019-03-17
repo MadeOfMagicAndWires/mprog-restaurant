@@ -30,7 +30,7 @@ public class CategoriesActivityFragment extends ListFragment implements Categori
         private CategoriesRequest.Callback callbackActivity;
 
         /**
-         * Standard consructor
+         * Standard constructor
          * @param request the CategoriesRequest to retry on click
          * @param callbackActivity callback to call when the request is resolved.
          */

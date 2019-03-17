@@ -17,7 +17,7 @@ import java.util.List;
 public class MenuItemsRequest extends RestaurantApiRequest {
 
     public static final String MENU_NO_FILTER = "all";
-    public static final String RESPONSE_ARRAY_KEY = "items";
+    private static final String RESPONSE_ARRAY_KEY = "items";
 
     private static MenuItemsRequest instance;
 
@@ -27,11 +27,16 @@ public class MenuItemsRequest extends RestaurantApiRequest {
     public interface Callback extends RestaurantApiRequest.Callback {
 
         /**
-         * Called when a request successfully retrieved the menu from the API
+         * Called when a menu request successfully retrieved the menu from the API
+         *
          * @param restaurantMenuItems List of all the Menu
          */
         public void onReceivedMenu(List<RestaurantMenuItem> restaurantMenuItems);
 
+        /**
+         * Called when a menu request returned an error
+         * @param errorMsg a short description of what went wrong
+         */
         public void onReceivedMenuError(String errorMsg);
 
     }
@@ -49,8 +54,9 @@ public class MenuItemsRequest extends RestaurantApiRequest {
 
     /**
      * Retrieves the global MenuItemRequest instance
-     * @param c
-     * @return
+     *
+     * @param c the application context needed to create a requestqueue
+     * @return the global menuitemrequest instance
      */
     public static MenuItemsRequest getInstance(@NonNull Context c) {
         if(instance == null) {
@@ -61,14 +67,16 @@ public class MenuItemsRequest extends RestaurantApiRequest {
 
     /**
      * Requests the restaurant's menu from the API
+     *
      * @param callbackActivity acitivty implementing {@link Callback}
      */
     public void getMenu(@NonNull MenuItemsRequest.Callback callbackActivity) {
-        makeRequest(Request.Method.GET, getEndPoint(Request.Method.GET), (JSONObject) null);
+        makeRequest(Request.Method.GET, ENDPOINT_MENU, (JSONObject) null);
     }
 
     /**
      * Requests the restaurant's menu from the API, filtering it by category
+     *
      * @param callbackActivity class which implements {@link MenuItemsRequest.Callback}
      * @param categoryFilter category from which items are *included*
      */
@@ -77,25 +85,9 @@ public class MenuItemsRequest extends RestaurantApiRequest {
             mCallbackActivity = callbackActivity;
         }
         if(categoryFilter == null || categoryFilter.equals(MENU_NO_FILTER)) {
-            makeRequest(Request.Method.GET, getEndPoint(Request.Method.GET), "");
+            makeRequest(Request.Method.GET, ENDPOINT_MENU, "");
         } else {
-            makeRequest(Request.Method.GET, getEndPoint(Request.Method.GET), "?category=" + categoryFilter);
-        }
-    }
-
-
-    @Override
-    public @EndPoint String getEndPoint(int method) {
-        switch (method) {
-            case Request.Method.GET:
-                return ENDPOINT_MENU;
-
-            case Request.Method.POST:
-                return ENDPOINT_ORDER;
-
-                default:
-                    return ENDPOINT_MENU;
-
+            makeRequest(Request.Method.GET, ENDPOINT_MENU, "?category=" + categoryFilter);
         }
     }
 
@@ -124,13 +116,17 @@ public class MenuItemsRequest extends RestaurantApiRequest {
                     );
                 }
                 if (!items.isEmpty() && items.size() == resItems.length()) {
-                    mCallbackActivity.onReceivedMenu(items);
+                    if(mCallbackActivity != null) {
+                        mCallbackActivity.onReceivedMenu(items);
+                    }
                     return;
                 }
             }
 
         }
-        mCallbackActivity.onReceivedMenuError("Couldn't parse the JSON Response.");
+        if(mCallbackActivity != null) {
+            mCallbackActivity.onReceivedMenuError("Couldn't parse the JSON Response.");
+        }
     }
 
     /**
@@ -147,14 +143,16 @@ public class MenuItemsRequest extends RestaurantApiRequest {
 
         }
         errorMsg += error.getLocalizedMessage();
-        mCallbackActivity.onReceivedMenuError(errorMsg);
-
+        if(mCallbackActivity != null) {
+            mCallbackActivity.onReceivedMenuError(errorMsg);
+        }
     }
 
     /**
      * Retrieves an image from a source and loads it into an ImageView
+     *
      * @param source the location of the image to load
-     * @param target the target the image needs to shown in
+     * @param target the target view the image needs to be shown in
      *
      */
     public static void attachImageTo(String source, final ImageView target) {
