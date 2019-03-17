@@ -104,7 +104,6 @@ public class RestaurantMenuItemAdapter extends RecyclerView.Adapter<RestaurantMe
 
             // bind RestaurantMenuItem as tag and add the overflow menu onClickListener
             vHolder.itemView.setTag(item);
-            overflowMenu.setOnClickListener(vHolder);
 
             // bind RestaurantMenuItem's image
             MenuItemsRequest.attachImageTo(item.getImgUrl(), img);

@@ -20,4 +20,5 @@
     <string name="btn_order">Order</string>
     <string name="detail_no_menu_item_error">Could not retrieve Restaurant Menu Item</string>
     <string name="details_menu_item_loading">Loading...</string>
+    <string name="order_sent_msg">Order sent successfully; ETA: %d minutes!</string>
 </resources>

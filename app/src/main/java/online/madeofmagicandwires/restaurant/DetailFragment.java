@@ -202,7 +202,10 @@ public class DetailFragment extends Fragment implements OrderRequest.OnOrderRequ
         if(isAdded()) {
             Snackbar sb = Snackbar.make(
                     getView(), // view necessary for creation
-                    "Order sent successfully; ETA: " + remainingTime + " minutes!",
+                    String.format(
+                            getString(R.string.order_sent_msg),
+                            remainingTime
+                    ),
                     Snackbar.LENGTH_LONG);
             sb.show();
         }
