@@ -14,7 +14,9 @@ import java.util.HashMap;
  * Renamed RestaurantMenuItem in order to avoid confusion with {@link android.view.MenuItem}
  *
  */
-public class RestaurantMenuItem implements Serializable {
+
+@SuppressWarnings("WeakerAccess,unused")
+class RestaurantMenuItem implements Serializable {
 
     private int id;
     private String name;
@@ -84,7 +86,7 @@ public class RestaurantMenuItem implements Serializable {
      * Returns the category of the menu item
      * @return the category to which this item belongs
      */
-    public String getCategory() {
+    private String getCategory() {
         return category;
     }
 
@@ -132,6 +134,7 @@ public class RestaurantMenuItem implements Serializable {
      * @param imgUrl a valid http(s):// url to an image depicting the menu item
      * @return true if the item's url was set, false if not (in which case it was not a valid url).
      */
+    @SuppressWarnings("SameReturnValue")
     public boolean setUrl(URL imgUrl) {
         this.imgUrl = imgUrl.toString();
         return true;
@@ -206,7 +209,8 @@ public class RestaurantMenuItem implements Serializable {
 
     /**
      * Returns a human readable text representation of the menu item
-     * @return
+     *
+     * @return a human readable string
      */
     @NonNull
     @Override

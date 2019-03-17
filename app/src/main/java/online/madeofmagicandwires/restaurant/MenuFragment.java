@@ -1,6 +1,5 @@
 package online.madeofmagicandwires.restaurant;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -25,10 +24,10 @@ public class MenuFragment extends Fragment implements MenuItemsRequest.Callback 
      */
     private static class RetryMenuRequestOnClick implements View.OnClickListener {
 
-        private MenuItemsRequest request;
-        private MenuItemsRequest.Callback callbackActivity;
+        private final MenuItemsRequest request;
+        private final MenuItemsRequest.Callback callbackActivity;
 
-        public RetryMenuRequestOnClick(@NonNull MenuItemsRequest request, MenuItemsRequest.Callback callback) {
+        RetryMenuRequestOnClick(@NonNull MenuItemsRequest request, MenuItemsRequest.Callback callback) {
             this.request = request;
             this.callbackActivity = callback;
         }
@@ -56,22 +55,15 @@ public class MenuFragment extends Fragment implements MenuItemsRequest.Callback 
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param filter the category filter to include menu items by;
      * @return A new instance of fragment MenuFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MenuFragment newInstance(String filter) {
-        MenuFragment fragment = new MenuFragment();
-        return fragment;
+    public static MenuFragment newInstance() {
+        return new MenuFragment();
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_menu, container, false);
         initRecycler(v);
@@ -81,18 +73,24 @@ public class MenuFragment extends Fragment implements MenuItemsRequest.Callback 
     /**
      * Links the recycler view with its adapter and layout manager
      */
-    public void initRecycler(View root) {
-        Log.d("initRecycler", "called initrecycler");
-
+    @SuppressWarnings("ConstantConditions")
+    private void initRecycler(View root) {
         RecyclerView recycler = root.findViewById(R.id.menuItemsList);
         View emptyState = root.findViewById(R.id.emptyState);
 
         if(isAdded()) {
             if(adapter == null) {
                 items = new ArrayList<>();
-                adapter = new RestaurantMenuItemAdapter(getActivity(), R.layout.menu_items_list_entry, items);
-                adapter.registerAdapterDataObserver(new RestaurantMenuItemAdapter.OnMenuItemAdapterDataObserver(recycler, emptyState));
-
+                adapter = new RestaurantMenuItemAdapter(
+                        getActivity(),
+                        R.layout.menu_items_list_entry,
+                        items);
+                adapter.registerAdapterDataObserver(
+                        new RestaurantMenuItemAdapter.OnMenuItemAdapterDataObserver(
+                                recycler,
+                                emptyState
+                        )
+                );
             }
             recycler.setAdapter(adapter);
             adapter.notifyDataSetChanged();
@@ -104,6 +102,7 @@ public class MenuFragment extends Fragment implements MenuItemsRequest.Callback 
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onResume() {
         super.onResume();
@@ -135,6 +134,7 @@ public class MenuFragment extends Fragment implements MenuItemsRequest.Callback 
      * Called when a request resolved into an error
      * @param errorMsg a short description of what went wrong
      */
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onReceivedMenuError(String errorMsg) {
         Log.e(this.getClass().getName(), errorMsg);

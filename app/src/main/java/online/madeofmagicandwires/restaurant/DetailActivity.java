@@ -18,7 +18,8 @@ public class DetailActivity extends AppCompatActivity {
 
     /**
      * OnCreate method. Called when the activity views are about to be drawn
-     * @param savedInstanceState
+     *
+     * @param savedInstanceState data saved from the previous instance.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Log.d("DetailActivity", menuItem.toString());
 
-        /** update toolbar based on data **/
+        /* update toolbar based on data **/
         CollapsingToolbarLayout toolbarRoot = findViewById(R.id.toolbar_root);
         Toolbar toolbar = findViewById(R.id.toolbar);
         if(menuItem != null) {
@@ -56,7 +57,8 @@ public class DetailActivity extends AppCompatActivity {
 
     /**
      * Saves the state of the menu item to be retrieved at a later point in the activity lifecycle
-     * @param outState
+     *
+     * @param outState data saved for the next instance
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {

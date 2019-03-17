@@ -10,18 +10,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 
+@SuppressWarnings("WeakerAccess")
 public class RestaurantMenuItemViewholder extends RecyclerView.ViewHolder implements View.OnClickListener, PopupMenu.OnMenuItemClickListener, OrderRequest.OnOrderRequest {
 
     private static class OpenOverFlowOnClick implements View.OnClickListener {
 
-        private PopupMenu.OnMenuItemClickListener listener;
+        private final PopupMenu.OnMenuItemClickListener listener;
 
         /**
          * Standard constructor
          * @param listener OnMenuItemClickListener interface
          *                 implementing what to do when the overflow menu items are clicked
          */
-        public OpenOverFlowOnClick(PopupMenu.OnMenuItemClickListener listener) {
+        OpenOverFlowOnClick(PopupMenu.OnMenuItemClickListener listener) {
             this.listener = listener;
         }
 
@@ -104,8 +105,9 @@ public class RestaurantMenuItemViewholder extends RecyclerView.ViewHolder implem
     public void onReceivedOrderResponse(int remainingTime) {
         Snackbar sb = Snackbar.make(
                 itemView,
-                String.format(
-                        itemView.getContext().getString(R.string.order_sent_msg),
+                itemView.getContext().getResources().getQuantityString(
+                        R.plurals.order_sent_msg,
+                        remainingTime,
                         remainingTime
                 ),
                 Snackbar.LENGTH_LONG

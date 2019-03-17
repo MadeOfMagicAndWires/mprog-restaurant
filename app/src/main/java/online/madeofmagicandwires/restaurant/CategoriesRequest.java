@@ -2,13 +2,9 @@ package online.madeofmagicandwires.restaurant;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.view.View;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +12,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 public class CategoriesRequest extends RestaurantApiRequest {
 
     /**
@@ -36,8 +33,8 @@ public class CategoriesRequest extends RestaurantApiRequest {
         void onReceivedCategoriesError(String errorMsg);
     }
 
-    public static final String RESPONSE_ARRAY_KEY = "categories";
-    public static CategoriesRequest instance;
+    private static final String RESPONSE_ARRAY_KEY = "categories";
+    private static CategoriesRequest instance;
 
     private static CategoriesRequest.Callback mCallbackActivity;
 
@@ -67,11 +64,11 @@ public class CategoriesRequest extends RestaurantApiRequest {
      * @param callbackActivity activity implementing {@link Callback}
      */
     public void getCategories(CategoriesRequest.Callback callbackActivity) {
-        // if callbackactivity is not set already or is different, do so now
+        // if callback is not set already or is different, do so now
         if(!callbackActivity.equals(mCallbackActivity)) {
             mCallbackActivity = callbackActivity;
         }
-        makeRequest(Request.Method.GET, RestaurantApiRequest.ENDPOINT_CATEGORIES, "");
+        makeRequest(RestaurantApiRequest.ENDPOINT_CATEGORIES, "");
 
     }
 

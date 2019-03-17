@@ -32,7 +32,7 @@ public class MenuActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction changes = fm.beginTransaction();
 
-        MenuFragment main = MenuFragment.newInstance(MENU_FILTER);
+        MenuFragment main = MenuFragment.newInstance();
         changes.replace(R.id.fragmentContainer, main);
         changes.commit();
         fm.findFragmentById(R.id.menuListFragment);
@@ -57,7 +57,7 @@ public class MenuActivity extends AppCompatActivity {
      * @param savedInstance the bundle of saved data from the previous instance
      * @return retrieved Category filter or null if it wasn't available
      */
-    public String getFilter(Bundle savedInstance) {
+    private String getFilter(Bundle savedInstance) {
         String filter = null;
         if(savedInstance != null &&
                 savedInstance.containsKey(CategoriesActivityFragment.CATEGORY_BUNDLE_KEY)) {
@@ -71,8 +71,8 @@ public class MenuActivity extends AppCompatActivity {
      * @return the category filter packaged within the activity intent or
      * {@link MenuItemsRequest#MENU_NO_FILTER} in case it was not packaged.
      */
-    public String getFilter(Intent intent) {
-        String filter = null;
+    private String getFilter(Intent intent) {
+        String filter;
         if(intent.hasExtra(CategoriesActivityFragment.CATEGORY_BUNDLE_KEY)) {
             filter = intent.getStringExtra(CategoriesActivityFragment.CATEGORY_BUNDLE_KEY);
             if(filter == null) {
@@ -91,7 +91,7 @@ public class MenuActivity extends AppCompatActivity {
      * @param savedInstanceState bundle of data saved from a previous instance
      * @param intent activity intent
      */
-    public void getFilter(Bundle savedInstanceState, Intent intent) {
+    private void getFilter(Bundle savedInstanceState, Intent intent) {
         MENU_FILTER = getFilter(savedInstanceState);
         if(MENU_FILTER == null){
             MENU_FILTER = getFilter(intent);

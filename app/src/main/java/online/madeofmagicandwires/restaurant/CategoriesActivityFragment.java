@@ -24,17 +24,18 @@ public class CategoriesActivityFragment extends ListFragment implements Categori
     /**
      * Event listener that will retry a categories request on click.
      */
+    @SuppressWarnings("WeakerAccess")
     private static class RetryCategoriesRequestOnClick implements View.OnClickListener {
 
-        private CategoriesRequest request;
-        private CategoriesRequest.Callback callbackActivity;
+        private final CategoriesRequest request;
+        private final CategoriesRequest.Callback callbackActivity;
 
         /**
          * Standard constructor
          * @param request the CategoriesRequest to retry on click
          * @param callbackActivity callback to call when the request is resolved.
          */
-        public RetryCategoriesRequestOnClick(@NonNull CategoriesRequest request, CategoriesRequest.Callback callbackActivity) {
+        RetryCategoriesRequestOnClick(@NonNull CategoriesRequest request, CategoriesRequest.Callback callbackActivity) {
             this.request = request;
             this.callbackActivity = callbackActivity;
         }
@@ -173,7 +174,7 @@ public class CategoriesActivityFragment extends ListFragment implements Categori
         super.onListItemClick(l, v, position, id);
         if (getListAdapter() instanceof CategoryAdapter) {
             CategoryAdapter adapter = (CategoryAdapter) getListAdapter();
-            String category = (String) adapter.getItem(position);
+            String category = adapter.getItem(position);
 
             if (isAdded()) {
                 Intent intent = new Intent(getActivity(), MenuActivity.class);

@@ -19,7 +19,7 @@
 
 
         <android.support.constraint.Guideline
-            android:id="@+id/ImgBotttomGuideLine"
+            android:id="@+id/ImgBottomGuideLine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -33,7 +33,7 @@
             android:padding="10dp"
 
             android:contentDescription="@string/item_img_content_desc"
-            app:layout_constraintBottom_toBottomOf="@+id/ImgBotttomGuideLine"
+            app:layout_constraintBottom_toBottomOf="@+id/ImgBottomGuideLine"
             app:layout_constraintEnd_toStartOf="@id/itemTextContainer"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,6 +69,7 @@
                 android:id="@+id/itemOverflowMenu"
                 style="@style/AppTheme.MenuItemOverflowMenu"
                 android:src="@drawable/ic_overflow"
+                android:contentDescription="@string/overflow_menu_desc"
 
                 app:layout_constraintBottom_toTopOf="@+id/itemDesc"
                 app:layout_constraintEnd_toEndOf="parent"

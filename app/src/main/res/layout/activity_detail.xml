@@ -35,6 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
+                android:contentDescription="@string/toolbar_img_desc"
 
                 tools:src="@drawable/ic_loop_animated" />
 

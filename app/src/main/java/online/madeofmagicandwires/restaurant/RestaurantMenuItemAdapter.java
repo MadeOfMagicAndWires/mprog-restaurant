@@ -4,30 +4,25 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.URLUtil;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.Collection;
 import java.util.List;
 
-import static online.madeofmagicandwires.restaurant.MenuItemsRequest.attachImageTo;
-
-public class RestaurantMenuItemAdapter extends RecyclerView.Adapter<RestaurantMenuItemViewholder> {
+@SuppressWarnings("WeakerAccess,unused")
+class RestaurantMenuItemAdapter extends RecyclerView.Adapter<RestaurantMenuItemViewholder> {
 
     private static final @LayoutRes int DEFAULT_LAYOUT = R.layout.menu_items_list_entry;
 
-    private List<RestaurantMenuItem> items;
-    private LayoutInflater inflater;
-    private @LayoutRes int layout;
+    private final List<RestaurantMenuItem> items;
+    private final LayoutInflater inflater;
+    private @LayoutRes
+    final int layout;
 
 
     /**
@@ -36,8 +31,8 @@ public class RestaurantMenuItemAdapter extends RecyclerView.Adapter<RestaurantMe
      */
     public static class OnMenuItemAdapterDataObserver extends RecyclerView.AdapterDataObserver {
 
-        private RecyclerView mRecycler;
-        private View mEmptyState;
+        private final RecyclerView mRecycler;
+        private final View mEmptyState;
 
         public OnMenuItemAdapterDataObserver(@NonNull RecyclerView aRecyclerView, View emptyState) {
             super();
@@ -133,7 +128,7 @@ public class RestaurantMenuItemAdapter extends RecyclerView.Adapter<RestaurantMe
      * @param collection A Collection of items to be added to the adapter's list
      * @return true if the inner list was modified, false otherwise
      */
-    public boolean addAll(Collection<RestaurantMenuItem> collection) {
+    public boolean addAll(Collection<? extends RestaurantMenuItem> collection) {
         return items.addAll(collection);
     }
 
@@ -148,7 +143,7 @@ public class RestaurantMenuItemAdapter extends RecyclerView.Adapter<RestaurantMe
      * checks if the inner list is empty
      * @return true if the list is empty, false otherwise
      */
-    public boolean isEmpty() {
+    private boolean isEmpty() {
         return items.isEmpty();
     }
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +13,13 @@ import android.widget.TextView;
 import java.util.Collection;
 import java.util.List;
 
-public class CategoryAdapter extends ArrayAdapter<String> {
+@SuppressWarnings("WeakerAccess,unused")
+class CategoryAdapter extends ArrayAdapter<String> {
 
-    private List<String> data;
-    private LayoutInflater inflater;
-    private @LayoutRes int layout;
+    private final List<String> data;
+    private final LayoutInflater inflater;
+    private @LayoutRes
+    final int layout;
 
     /**
      * Constructor
@@ -52,10 +53,10 @@ public class CategoryAdapter extends ArrayAdapter<String> {
     /**
      * Inflate a view if necessary and bind necessary data to it
      *
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return
+     * @param position the position of the view/data within the adapter
+     * @param convertView an old view to be reused if available
+     * @param parent the parent listview
+     * @return the view with its data bound
      */
     @NonNull
     @Override
@@ -76,7 +77,7 @@ public class CategoryAdapter extends ArrayAdapter<String> {
 
     private String capitaliseItem(int position) {
         if(getItem(position) instanceof String) {
-            StringBuilder item = new StringBuilder((String) data.get(position));
+            StringBuilder item = new StringBuilder(data.get(position));
             if(item.length() != 0) {
                 item.setCharAt(0, Character.toUpperCase(item.charAt(0)));
             }
@@ -100,7 +101,7 @@ public class CategoryAdapter extends ArrayAdapter<String> {
      *                                       specified collection prevents it from being added to this list
      */
     @Override
-    public void addAll(@NonNull Collection collection) {
+    public void addAll(@NonNull Collection<? extends String> collection) {
         data.addAll(collection);
     }
 

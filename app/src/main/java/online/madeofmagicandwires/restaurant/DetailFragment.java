@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,15 +25,15 @@ public class DetailFragment extends Fragment implements OrderRequest.OnOrderRequ
      */
     private static class OnOrderAmountChangeListener implements NumberPicker.OnValueChangeListener {
 
-        private TextView costView;
-        private double itemPrice;
+        private final TextView costView;
+        private final double itemPrice;
 
         /**
          * standard constructor for this event listener
          * @param costView a textview in which the total cost of the order is to be displayed
          * @param price the price of the ordered item
          */
-        public OnOrderAmountChangeListener(TextView costView, double price) {
+        OnOrderAmountChangeListener(TextView costView, double price) {
             this.costView = costView;
             this.itemPrice = price;
         }
@@ -67,9 +66,9 @@ public class DetailFragment extends Fragment implements OrderRequest.OnOrderRequ
      */
     private static class OrderItemOnClick implements View.OnClickListener {
 
-        private OrderRequest.OnOrderRequest callback;
-        private NumberPicker amount;
-        private RestaurantMenuItem mItem;
+        private final OrderRequest.OnOrderRequest callback;
+        private final NumberPicker amount;
+        private final RestaurantMenuItem mItem;
 
         /**
          * Most precise constructor.
@@ -79,7 +78,7 @@ public class DetailFragment extends Fragment implements OrderRequest.OnOrderRequ
          * @param item the item to order
          * @param amount numberpicker representing the amount of items to order
          */
-        public OrderItemOnClick(@NonNull OrderRequest.OnOrderRequest callback, RestaurantMenuItem item, NumberPicker amount) {
+        OrderItemOnClick(@NonNull OrderRequest.OnOrderRequest callback, RestaurantMenuItem item, NumberPicker amount) {
             this.callback = callback;
             this.amount = amount;
             this.mItem = item;
@@ -92,7 +91,7 @@ public class DetailFragment extends Fragment implements OrderRequest.OnOrderRequ
          * @param callback the callback interface to notify when the request is resolved
          * @param amount a numberpicker representing the amount of items to order
          */
-        public OrderItemOnClick(@NonNull OrderRequest.OnOrderRequest callback, NumberPicker amount) {
+        OrderItemOnClick(@NonNull OrderRequest.OnOrderRequest callback, NumberPicker amount) {
             this(callback, null, amount);
         }
 
@@ -105,6 +104,7 @@ public class DetailFragment extends Fragment implements OrderRequest.OnOrderRequ
          * @param v The view that was clicked. Should have a tag containing a
          *          RestaurantMenuItem on key {@link R.id.order_item_key}
          */
+        @SuppressWarnings("JavadocReference")
         @Override
         public void onClick(View v) {
             // retrieve associated item
@@ -135,7 +135,7 @@ public class DetailFragment extends Fragment implements OrderRequest.OnOrderRequ
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         if(getArguments() != null) {
@@ -143,7 +143,6 @@ public class DetailFragment extends Fragment implements OrderRequest.OnOrderRequ
         } else {
             mItem = null;
         }
-        Log.d("DetailActivity", mItem.toString());
 
 
         // Inflate the layout for this fragment
@@ -159,7 +158,7 @@ public class DetailFragment extends Fragment implements OrderRequest.OnOrderRequ
      * @param v the root view created by OnCreateView
      * @param item the menu item returned from the parent activity if passed along.
      */
-    public void bindData(@NonNull View v, @Nullable RestaurantMenuItem item) {
+    private void bindData(@NonNull View v, @Nullable RestaurantMenuItem item) {
         TextView description = v.findViewById(R.id.detailText);
         NumberPicker orderNo = v.findViewById(R.id.orderNumber);
         Button btn = v.findViewById(R.id.orderButton);
@@ -197,20 +196,22 @@ public class DetailFragment extends Fragment implements OrderRequest.OnOrderRequ
     }
 
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onReceivedOrderResponse(int remainingTime) {
         if(isAdded()) {
             Snackbar sb = Snackbar.make(
                     getView(), // view necessary for creation
-                    String.format(
-                            getString(R.string.order_sent_msg),
-                            remainingTime
-                    ),
+                    getResources().getQuantityString(
+                            R.plurals.order_sent_msg,
+                            remainingTime,
+                            remainingTime),
                     Snackbar.LENGTH_LONG);
             sb.show();
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onReceivedOrderError(String errorMsg) {
         if(isAdded()) {

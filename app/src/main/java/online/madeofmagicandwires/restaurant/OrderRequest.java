@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@SuppressWarnings("WeakerAccess")
 public class OrderRequest extends RestaurantApiRequest {
 
     private static final String ORDER_RESPONSE_KEY = "preparation_time";
@@ -23,14 +24,14 @@ public class OrderRequest extends RestaurantApiRequest {
          *
          * @param remainingTime the remaining time until the order arrives
          */
-        public void onReceivedOrderResponse(int remainingTime);
+        void onReceivedOrderResponse(int remainingTime);
 
         /**
          * Called when an order request returned an error.
          *
          * @param errorMsg a short description of what went wrong.
          */
-        public void onReceivedOrderError(String errorMsg);
+        void onReceivedOrderError(String errorMsg);
     }
 
 

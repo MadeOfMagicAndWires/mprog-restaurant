@@ -21,16 +21,16 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
  * Abstract superclass containing methods and members for generic JSON requests from the API.
  * Needs to be extended for more specific request methods
  */
-abstract public class RestaurantApiRequest implements Response.ErrorListener, Response.Listener<JSONObject> {
+abstract class RestaurantApiRequest implements Response.ErrorListener, Response.Listener<JSONObject> {
 
     /** the root url of the API **/
-    public static final String API_URL = "https://resto.mprog.nl/";
+    private static final String API_URL = "https://resto.mprog.nl/";
 
 
     /** API endpoint enumerated annotation **/
-    public static final String ENDPOINT_CATEGORIES = "categories";
-    public static final String ENDPOINT_MENU = "menu";
-    public static final String ENDPOINT_ORDER = "order";
+    static final String ENDPOINT_CATEGORIES = "categories";
+    static final String ENDPOINT_MENU = "menu";
+    static final String ENDPOINT_ORDER = "order";
 
     @Retention(SOURCE)
     @StringDef({
@@ -42,19 +42,19 @@ abstract public class RestaurantApiRequest implements Response.ErrorListener, Re
     /**
      * superclass interface to be extended in request subclasses
      */
-    public interface Callback {
+    interface Callback {
 
     }
 
     /** context to be used by Volley **/
-    private RequestQueue queue;
+    private final RequestQueue queue;
 
 
     /**
      * Standard Constructor
      * @param context application context used to create a requestqueue
      */
-    public RestaurantApiRequest(@NonNull Context context) {
+    RestaurantApiRequest(@NonNull Context context) {
         this.queue = Volley.newRequestQueue(context);
     }
 
@@ -64,8 +64,9 @@ abstract public class RestaurantApiRequest implements Response.ErrorListener, Re
      *
      * @param error exception containing information on what went wrong
      */
+    @SuppressWarnings("WeakerAccess")
     @Override
-    abstract public void onErrorResponse(VolleyError error);
+    public abstract void onErrorResponse(VolleyError error);
 
     /**
      * Called when a response is received.
@@ -73,6 +74,7 @@ abstract public class RestaurantApiRequest implements Response.ErrorListener, Re
      *
      * @param response response object
      */
+    @SuppressWarnings("unused")
     @Override
     abstract public void onResponse(JSONObject response);
 
@@ -82,14 +84,15 @@ abstract public class RestaurantApiRequest implements Response.ErrorListener, Re
      * @param endPoint the API endpoint
      * @param params possible POST Parameters; can be null
      */
-    public void makeRequest(int method,  String endPoint, @Nullable  JSONObject params) {
+    void makeRequest(int method,  @EndPoint String endPoint, @Nullable JSONObject params) {
         try {
             JsonObjectRequest request = new JsonObjectRequest(
                     method,
                     API_URL + endPoint,
-                    null,
+                    params,
                     this,
-                    this);
+                    this
+            );
             queue.add(request);
 
 
@@ -99,8 +102,8 @@ abstract public class RestaurantApiRequest implements Response.ErrorListener, Re
 
     }
 
-    public void makeRequest(int method, String endPoint, String queryParams) {
-        makeRequest(method, endPoint + queryParams, (JSONObject) null);
+    void makeRequest(@EndPoint String endPoint, String queryParams) {
+        makeRequest(com.android.volley.Request.Method.GET, endPoint + queryParams, null);
     }
 
 

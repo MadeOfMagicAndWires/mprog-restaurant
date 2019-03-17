@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 public class MenuItemsRequest extends RestaurantApiRequest {
 
     public static final String MENU_NO_FILTER = "all";
@@ -31,20 +32,20 @@ public class MenuItemsRequest extends RestaurantApiRequest {
          *
          * @param restaurantMenuItems List of all the Menu
          */
-        public void onReceivedMenu(List<RestaurantMenuItem> restaurantMenuItems);
+        void onReceivedMenu(List<RestaurantMenuItem> restaurantMenuItems);
 
         /**
          * Called when a menu request returned an error
          * @param errorMsg a short description of what went wrong
          */
-        public void onReceivedMenuError(String errorMsg);
+        void onReceivedMenuError(String errorMsg);
 
     }
 
-    public MenuItemsRequest.Callback mCallbackActivity;
+    private MenuItemsRequest.Callback mCallbackActivity;
 
     /**
-     * Standard contstructor
+     * Standard constructor
      * @param context Activity context used by ...
      */
     private MenuItemsRequest(@NonNull Context context) {
@@ -68,10 +69,13 @@ public class MenuItemsRequest extends RestaurantApiRequest {
     /**
      * Requests the restaurant's menu from the API
      *
-     * @param callbackActivity acitivty implementing {@link Callback}
+     * @param callbackActivity activity implementing {@link Callback}
      */
     public void getMenu(@NonNull MenuItemsRequest.Callback callbackActivity) {
-        makeRequest(Request.Method.GET, ENDPOINT_MENU, (JSONObject) null);
+        if(mCallbackActivity != callbackActivity) {
+            mCallbackActivity = callbackActivity;
+        }
+        makeRequest(Request.Method.GET, ENDPOINT_MENU, null);
     }
 
     /**
@@ -85,9 +89,9 @@ public class MenuItemsRequest extends RestaurantApiRequest {
             mCallbackActivity = callbackActivity;
         }
         if(categoryFilter == null || categoryFilter.equals(MENU_NO_FILTER)) {
-            makeRequest(Request.Method.GET, ENDPOINT_MENU, "");
+            makeRequest(ENDPOINT_MENU, "");
         } else {
-            makeRequest(Request.Method.GET, ENDPOINT_MENU, "?category=" + categoryFilter);
+            makeRequest(ENDPOINT_MENU, "?category=" + categoryFilter);
         }
     }
 
@@ -160,10 +164,15 @@ public class MenuItemsRequest extends RestaurantApiRequest {
 
             // Target callback did not work correctly so we're pre-fetching drawables
             Drawable error = target.getContext().getDrawable(R.drawable.ic_error);
-            error.setTint(target.getContext().getColor(R.color.colorError));
+            if(error != null) {
+                error.setTint(target.getContext().getColor(R.color.colorError));
+            }
             AnimatedVectorDrawable placeholder = (AnimatedVectorDrawable) target.getContext().getDrawable(R.drawable.ic_loop_animated);
-            placeholder.start();
+            if(placeholder != null) {
+                placeholder.start();
+            }
 
+            //noinspection ConstantConditions
             Picasso.get().load(source)
                     .placeholder(placeholder)
                     .error(error)
