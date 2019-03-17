@@ -59,7 +59,7 @@ abstract public class RestaurantApiRequest implements Response.ErrorListener, Re
     }
 
     /**
-     * Callback method that an error has been occurred with the provided error code and optional
+     * OnMenuRequest method that an error has been occurred with the provided error code and optional
      * user-readable message.
      *
      * @param error exception containing information on what went wrong
@@ -75,13 +75,6 @@ abstract public class RestaurantApiRequest implements Response.ErrorListener, Re
      */
     @Override
     abstract public void onResponse(JSONObject response);
-
-    /**
-     * Retrieves the API endpoint for this type of request
-     * @param method the request method used; e.g. "GET"
-     * @return String pointing to the API endpoint, sans preceding "/"
-     */
-    abstract public @EndPoint String getEndPoint(int method);
 
 
     /**
