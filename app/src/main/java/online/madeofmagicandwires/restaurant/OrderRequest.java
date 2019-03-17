@@ -12,6 +12,8 @@ import org.json.JSONObject;
 
 public class OrderRequest extends RestaurantApiRequest {
 
+    private static final String ORDER_RESPONSE_KEY = "preparation_time";
+
     /**
      * Callback interface for order request
      */
@@ -96,9 +98,9 @@ public class OrderRequest extends RestaurantApiRequest {
     @Override
     public void onResponse(JSONObject response) {
         Log.d("onResponse", response.toString());
-        if(response.has("preparation_time")) {
+        if(response.has(ORDER_RESPONSE_KEY)) {
             if(mCallback != null) {
-                mCallback.onReceivedOrderResponse(response.optInt("preparation_time"));
+                mCallback.onReceivedOrderResponse(response.optInt(ORDER_RESPONSE_KEY));
                 return;
             }
         }

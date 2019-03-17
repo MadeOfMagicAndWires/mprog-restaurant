@@ -98,7 +98,7 @@ public class MenuItemsRequest extends RestaurantApiRequest {
      */
     @Override
     public void onResponse(JSONObject response) {
-        if(response.has("items")) {
+        if(response.has(RESPONSE_ARRAY_KEY)) {
             List<RestaurantMenuItem> items = new ArrayList<>();
             JSONArray resItems = response.optJSONArray(RESPONSE_ARRAY_KEY);
             if(resItems != null && resItems.length() != 0) {
